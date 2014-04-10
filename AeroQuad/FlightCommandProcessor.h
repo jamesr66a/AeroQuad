@@ -272,6 +272,7 @@ void readPilotCommands() {
 	new_x_axis=AUX1;
 	new_y_axis=AUX2;
 	new_z_axis=AUX3;
+    //SERIAL_PRINT("gumstix\r\n");
   }
 
   else if(analogRead(A2)>=350){
@@ -279,6 +280,7 @@ void readPilotCommands() {
 	new_x_axis=XAXIS;
 	new_y_axis=YAXIS;
 	new_z_axis=ZAXIS;
+    //SERIAL_PRINT("receiver\r\n");
   }
 
   if (receiverCommand[new_throttle_index] < MINCHECK) {

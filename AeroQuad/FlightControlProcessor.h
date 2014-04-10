@@ -226,8 +226,8 @@ void processThrottleCorrection() {
  */
 void processHardManuevers() {
   
-  if ((receiverCommand[new_y_axis] < MINCHECK) ||
-      (receiverCommand[new_y_axis] > MAXCHECK) ||
+  if ((receiverCommand[new_x_axis] < MINCHECK) ||
+      (receiverCommand[new_x_axis] > MAXCHECK) ||
       (receiverCommand[new_y_axis] < MINCHECK) ||
       (receiverCommand[new_y_axis] > MAXCHECK)) {  
         
