@@ -264,9 +264,23 @@ void readPilotCommands() {
 
   readReceiver();
 
-  SERIAL_PRINT(analogRead(A2));
-  SERIAL_PRINT("\r\n");
+//  SERIAL_PRINT(analogRead(A2));
+//  SERIAL_PRINT("\r\n");
   
+  if(analogRead(A2)<350){
+	new_throttle_index=MODE;
+	new_x_axis=AUX1;
+	new_y_axis=AUX2;
+	new_z_axis=AUX3;
+  }
+
+  else if(analogRead(A2)>=350){
+	new_throttle_index=THROTTLE;
+	new_x_axis=XAXIS;
+	new_y_axis=YAXIS;
+	new_z_axis=ZAXIS;
+  }
+
   if (receiverCommand[new_throttle_index] < MINCHECK) {
     processZeroThrottleFunctionFromReceiverCommand();
   }
