@@ -25,9 +25,27 @@
 #define _AQ_FLIGHT_COMMAND_READER_
 
 
+/*****************************
+ *
+ * Begin declaration for mutable PWM input indices
+ *
+ * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * ****************************/
+
+static size_t new_throttle_index = THROTTLE;
+static size_t new_z_axis = ZAXIS;
+static size_t new_y_axis = YAXIS;
+static size_t new_x_axis = XAXIS;
 
 
-#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
+/*#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)
   boolean isPositionHoldEnabledByUser() {
     #if defined (UseGPSNavigator)
       if ((receiverCommand[AUX1] < 1750) || (receiverCommand[AUX2] < 1750)) {
@@ -41,9 +59,9 @@
       return false;
     #endif
   }
-#endif
+#endif */
 
-#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+/*#if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
   void processAltitudeHoldStateFromReceiverCommand() {
     if (isPositionHoldEnabledByUser()) {
       if (altitudeHoldState != ALTPANIC ) {  // check for special condition with manditory override of Altitude hold
@@ -69,10 +87,10 @@
       altitudeHoldState = OFF;
     }
   }
-#endif
+#endif */
 
 
-#if defined (AutoLanding)
+/*#if defined (AutoLanding)
   void processAutoLandingStateFromReceiverCommand() {
     if (receiverCommand[AUX3] < 1750) {
       if (altitudeHoldState != ALTPANIC ) {  // check for special condition with manditory override of Altitude hold
@@ -111,10 +129,10 @@
       #endif
     }
   }
-#endif
+#endif */
 
 
-#if defined (UseGPSNavigator)
+/*#if defined (UseGPSNavigator)
   void processGpsNavigationStateFromReceiverCommand() {
     // Init home command
     if (motorArmed == OFF && 
@@ -171,14 +189,14 @@
       gpsYawAxisCorrection = 0;
     }
   }
-#endif
+#endif */
 
 
 
 
 void processZeroThrottleFunctionFromReceiverCommand() {
   // Disarm motors (left stick lower left corner)
-  if (receiverCommand[ZAXIS] < MINCHECK && motorArmed == ON) {
+  if (receiverCommand[new_z_axis] < MINCHECK && motorArmed == ON) {
     commandAllMotors(MINCOMMAND);
     motorArmed = OFF;
     inFlight = false;
@@ -195,7 +213,7 @@ void processZeroThrottleFunctionFromReceiverCommand() {
   }    
 
   // Zero Gyro and Accel sensors (left stick lower left, right stick lower right corner)
-  if ((receiverCommand[ZAXIS] < MINCHECK) && (receiverCommand[XAXIS] > MAXCHECK) && (receiverCommand[YAXIS] < MINCHECK)) {
+  if ((receiverCommand[new_z_axis] < MINCHECK) && (receiverCommand[new_x_axis] > MAXCHECK) && (receiverCommand[new_y_axis] < MINCHECK)) {
     calibrateGyro();
     computeAccelBias();
     storeSensorsZeroToEEPROM();
@@ -205,7 +223,7 @@ void processZeroThrottleFunctionFromReceiverCommand() {
   }   
 
   // Arm motors (left stick lower right corner)
-  if (receiverCommand[ZAXIS] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) {
+  if (receiverCommand[new_z_axis] > MAXCHECK && motorArmed == OFF && safetyCheck == ON) {
 
     #ifdef OSD_SYSTEM_MENU
       if (menuOwnsSticks) {
@@ -226,7 +244,7 @@ void processZeroThrottleFunctionFromReceiverCommand() {
 
   }
   // Prevents accidental arming of motor output if no transmitter command received
-  if (receiverCommand[ZAXIS] > MINCHECK) {
+  if (receiverCommand[new_z_axis] > MINCHECK) {
     safetyCheck = ON; 
   }
 }
@@ -244,23 +262,23 @@ void readPilotCommands() {
 
   readReceiver(); 
   
-  if (receiverCommand[THROTTLE] < MINCHECK) {
+  if (receiverCommand[new_throttle_index] < MINCHECK) {
     processZeroThrottleFunctionFromReceiverCommand();
   }
 
   if (!inFlight) {
-    if (motorArmed == ON && receiverCommand[THROTTLE] > minArmedThrottle) {
+    if (motorArmed == ON && receiverCommand[new_throttle_index] > minArmedThrottle) {
       inFlight = true;
     }
   }
 
     // Check Mode switch for Acro or Stable
-    if (receiverCommand[MODE] > 1500) {
+    //if (receiverCommand[MODE] > 1500) {
         flightMode = ATTITUDE_FLIGHT_MODE;
-    }
-    else {
-        flightMode = RATE_FLIGHT_MODE;
-    }
+    //}
+    //else {
+    //    flightMode = RATE_FLIGHT_MODE;
+    //}
     
     if (previousFlightMode != flightMode) {
       zeroIntegralError();
