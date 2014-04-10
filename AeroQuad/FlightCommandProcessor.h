@@ -260,7 +260,10 @@ void processZeroThrottleFunctionFromReceiverCommand() {
  */
 void readPilotCommands() {
 
-  readReceiver(); 
+  readReceiver();
+
+  SERIAL_PRINT(analogRead(A2));
+  SERIAL_PRINT("\r\n");
   
   if (receiverCommand[new_throttle_index] < MINCHECK) {
     processZeroThrottleFunctionFromReceiverCommand();
