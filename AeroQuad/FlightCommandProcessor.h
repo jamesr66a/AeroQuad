@@ -39,10 +39,12 @@
  *
  * ****************************/
 
-static size_t new_throttle_index = THROTTLE;
-static size_t new_z_axis = ZAXIS;
-static size_t new_y_axis = YAXIS;
-static size_t new_x_axis = XAXIS;
+#include "ReceiverIndices.h"
+
+size_t new_throttle_index = THROTTLE;
+size_t new_z_axis = ZAXIS;
+size_t new_y_axis = YAXIS;
+size_t new_x_axis = XAXIS;
 
 
 /*#if defined (AltitudeHoldBaro) || defined (AltitudeHoldRangeFinder)

@@ -27,6 +27,8 @@
 
 #define ATTITUDE_SCALING (0.75 * PWM2RAD)
 
+#include "ReceiverIndices.h"
+
 
 /**
  * calculateFlightError
@@ -38,22 +40,22 @@ void calculateFlightError()
 {
   #if defined (UseGPSNavigator)
     if (navigationState == ON || positionHoldState == ON) {
-      float rollAttitudeCmd  = updatePID((receiverCommand[XAXIS] - receiverZero[XAXIS] + gpsRollAxisCorrection) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
-      float pitchAttitudeCmd = updatePID((receiverCommand[YAXIS] - receiverZero[YAXIS] + gpsPitchAxisCorrection) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
+      float rollAttitudeCmd  = updatePID((receiverCommand[new_x_axis] - receiverZero[XAXIS] + gpsRollAxisCorrection) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
+      float pitchAttitudeCmd = updatePID((receiverCommand[new_y_axis] - receiverZero[YAXIS] + gpsPitchAxisCorrection) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
       motorAxisCommandRoll   = updatePID(rollAttitudeCmd, gyroRate[XAXIS], &PID[ATTITUDE_GYRO_XAXIS_PID_IDX]);
       motorAxisCommandPitch  = updatePID(pitchAttitudeCmd, -gyroRate[YAXIS], &PID[ATTITUDE_GYRO_YAXIS_PID_IDX]);
     }
     else
   #endif
   if (flightMode == ATTITUDE_FLIGHT_MODE) {
-    float rollAttitudeCmd  = updatePID((receiverCommand[XAXIS] - receiverZero[XAXIS]) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
-    float pitchAttitudeCmd = updatePID((receiverCommand[YAXIS] - receiverZero[YAXIS]) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
+    float rollAttitudeCmd  = updatePID((receiverCommand[new_x_axis] - receiverZero[XAXIS]) * ATTITUDE_SCALING, kinematicsAngle[XAXIS], &PID[ATTITUDE_XAXIS_PID_IDX]);
+    float pitchAttitudeCmd = updatePID((receiverCommand[new_y_axis] - receiverZero[YAXIS]) * ATTITUDE_SCALING, -kinematicsAngle[YAXIS], &PID[ATTITUDE_YAXIS_PID_IDX]);
     motorAxisCommandRoll   = updatePID(rollAttitudeCmd, gyroRate[XAXIS], &PID[ATTITUDE_GYRO_XAXIS_PID_IDX]);
     motorAxisCommandPitch  = updatePID(pitchAttitudeCmd, -gyroRate[YAXIS], &PID[ATTITUDE_GYRO_YAXIS_PID_IDX]);
   }
   else {
-    motorAxisCommandRoll = updatePID(getReceiverSIData(XAXIS), gyroRate[XAXIS]*rotationSpeedFactor, &PID[RATE_XAXIS_PID_IDX]);
-    motorAxisCommandPitch = updatePID(getReceiverSIData(YAXIS), -gyroRate[YAXIS]*rotationSpeedFactor, &PID[RATE_YAXIS_PID_IDX]);
+    motorAxisCommandRoll = updatePID(getReceiverSIDataNew(new_x_axis, XAXIS), gyroRate[XAXIS]*rotationSpeedFactor, &PID[RATE_XAXIS_PID_IDX]);
+    motorAxisCommandPitch = updatePID(getReceiverSIDataNew(new_y_axis, YAXIS), -gyroRate[YAXIS]*rotationSpeedFactor, &PID[RATE_YAXIS_PID_IDX]);
   }
 }
 
@@ -224,10 +226,10 @@ void processThrottleCorrection() {
  */
 void processHardManuevers() {
   
-  if ((receiverCommand[XAXIS] < MINCHECK) ||
-      (receiverCommand[XAXIS] > MAXCHECK) ||
-      (receiverCommand[YAXIS] < MINCHECK) ||
-      (receiverCommand[YAXIS] > MAXCHECK)) {  
+  if ((receiverCommand[new_y_axis] < MINCHECK) ||
+      (receiverCommand[new_y_axis] > MAXCHECK) ||
+      (receiverCommand[new_y_axis] < MINCHECK) ||
+      (receiverCommand[new_y_axis] > MAXCHECK)) {  
         
     for (int motor = 0; motor < LASTMOTOR; motor++) {
       motorMinCommand[motor] = minArmedThrottle;
@@ -291,7 +293,7 @@ void processFlightControl() {
     #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
       processAltitudeHold();
     #else
-      throttle = receiverCommand[THROTTLE];
+      throttle = receiverCommand[new_throttle_index];
     #endif
     
     // ********************** Process Battery monitor hold **************************
@@ -317,7 +319,7 @@ void processFlightControl() {
   processMinMaxCommand();
 
   // If throttle in minimum position, don't apply yaw
-  if (receiverCommand[THROTTLE] < MINCHECK) {
+  if (receiverCommand[new_throttle_index] < MINCHECK) {
     for (byte motor = 0; motor < LASTMOTOR; motor++) {
       motorMinCommand[motor] = minArmedThrottle;
       if (inFlight && flightMode == RATE_FLIGHT_MODE) {

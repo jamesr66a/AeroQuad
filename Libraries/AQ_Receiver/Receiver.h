@@ -113,6 +113,12 @@ const float getReceiverSIData(byte channel) {
   return ((receiverCommand[channel] - receiverZero[channel]) * (2.5 * PWM2RAD));  // +/- 2.5RPS 50% of full rate
 }
 
+const float getReceiverSIDataNew(byte channel, byte orig_channel)
+{
+   return ((receiverCommand[channel] - receiverZero[orig_channel]) * (2.5 * PWM2RAD));  // +/- 2.5RPS 50% of full rate
+   
+}
+
 #endif
 
 

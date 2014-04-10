@@ -95,6 +95,7 @@ objSTM32/dummy/../AeroQuad32/AeroQuadMain.o: \
  ../Libraries/AQ_FlightControlProcessor/FlightControlVariable.h \
  /home/james/AeroQuad/AeroQuad32/../AeroQuad/AltitudeControlProcessor.h \
  /home/james/AeroQuad/AeroQuad32/../AeroQuad/FlightControlProcessor.h \
+ /home/james/AeroQuad/AeroQuad32/../AeroQuad/ReceiverIndices.h \
  /home/james/AeroQuad/AeroQuad32/../AeroQuad/FlightCommandProcessor.h \
  /home/james/AeroQuad/AeroQuad32/../AeroQuad/HeadingHoldProcessor.h \
  /home/james/AeroQuad/AeroQuad32/../AeroQuad/DataStorage.h \
@@ -303,6 +304,8 @@ objSTM32/dummy/../AeroQuad32/AeroQuadMain.o: \
 /home/james/AeroQuad/AeroQuad32/../AeroQuad/AltitudeControlProcessor.h:
 
 /home/james/AeroQuad/AeroQuad32/../AeroQuad/FlightControlProcessor.h:
+
+/home/james/AeroQuad/AeroQuad32/../AeroQuad/ReceiverIndices.h:
 
 /home/james/AeroQuad/AeroQuad32/../AeroQuad/FlightCommandProcessor.h:
 
