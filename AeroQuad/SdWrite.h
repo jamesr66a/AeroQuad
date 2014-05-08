@@ -29,7 +29,7 @@ void writeString(SdFile& f, char *str) {
   f.write((uint8_t *)str, n);
 }
 
-void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file ){
+void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file, string fileName){
 
   // initialize the SD card at SPI_HALF_SPEED to avoid bus errors with
   // breadboards.  use SPI_FULL_SPEED for better performance.
@@ -47,7 +47,7 @@ void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file ){
   // O_CREAT - create the file if it does not exist
   // O_APPEND - seek to the end of the file prior to each write
   // O_WRITE - open for write
-  if (!file.open(&root, name, O_CREAT | O_APPEND | O_WRITE)) {
+  if (!file.open(&root, fileName, O_CREAT | O_APPEND | O_WRITE)) {
     SERIAL_PRINT("open failed");
   }
 
