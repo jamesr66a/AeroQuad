@@ -272,6 +272,7 @@ void readPilotCommands() {
 	new_x_axis=AUX1;
 	new_y_axis=AUX2;
 	new_z_axis=AUX3;
+	digitalWrite(PLED1,LOW);
     //SERIAL_PRINT("gumstix\r\n");
   }
 
@@ -280,6 +281,7 @@ void readPilotCommands() {
 	new_x_axis=XAXIS;
 	new_y_axis=YAXIS;
 	new_z_axis=ZAXIS;
+	digitalWrite(PLED1,HIGH);
     //SERIAL_PRINT("receiver\r\n");
   }
 
