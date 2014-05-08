@@ -100,11 +100,7 @@
   #undef UseGPSNavigator
 
 
-  Sd2Card card; //test
-  SdVolume volume;
-  SdFile root;
-  SdFile file;
-  //end test
+  
   /**
    * Put AeroQuad_v1 specific initialization need here
    */
