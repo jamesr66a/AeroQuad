@@ -1,6 +1,6 @@
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
-# WinAVR Makefile Template written by Eric B. Weddington, Jörg Wunsch, et al.
+# WinAVR Makefile Template written by Eric B. Weddington, Jï¿½rg Wunsch, et al.
 #
 # Released to the Public Domain
 #
@@ -155,7 +155,7 @@ endif
 DEFINECPU = $(MCU_OPTIONS) -DBOARD_$(BOARD) -DMCU_$(MCU) -D$(MCU_FAMILY) -D$(DENSITY) -fno-exceptions 
 EXTRACPPFLAGS = -fno-rtti
 RUNTIMELIB = $(LIB_MAPLE_HOME)/build/libmaple.a
-MAPLEINCDIRS = $(LIB_MAPLE_HOME) $(LIB_MAPLE_HOME)/libmaple $(LIB_MAPLE_HOME)/wirish $(LIB_MAPLE_HOME)/wirish/comm $(LIB_MAPLE_HOME)/wirish/boards $(LIB_MAPLE_HOME)/libraries/Wire
+MAPLEINCDIRS = $(LIB_MAPLE_HOME) $(LIB_MAPLE_HOME)/libmaple $(LIB_MAPLE_HOME)/wirish $(LIB_MAPLE_HOME)/wirish/comm $(LIB_MAPLE_HOME)/wirish/boards $(LIB_MAPLE_HOME)/libraries/Wire $(LIB_MAPLE_HOME)/libraries/mapleSDfat
 EXTRAINCDIRS = $(MCDIR) $(SRCDIRAQ32) $(MAPLEINCDIRS)
 endif
 
