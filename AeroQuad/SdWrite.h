@@ -50,7 +50,7 @@ void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file){
   if (!file.open(&root, "file", O_CREAT | O_APPEND | O_WRITE)) {
     Serial.print("open failed");
   }
-
+}
 }
 
 #endif // SD_WRITE_H
