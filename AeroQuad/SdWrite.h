@@ -47,7 +47,7 @@ void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file){
   // O_CREAT - create the file if it does not exist
   // O_APPEND - seek to the end of the file prior to each write
   // O_WRITE - open for write
-  if (!file.open(&root, fileName, O_CREAT | O_APPEND | O_WRITE)) {
+  if (!file.open(&root, "file", O_CREAT | O_APPEND | O_WRITE)) {
     Serial.print("open failed");
   }
 
