@@ -33,13 +33,13 @@ void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file, cha
 
   // initialize the SD card at SPI_HALF_SPEED to avoid bus errors with
   // breadboards.  use SPI_FULL_SPEED for better performance.
-  if (!card.init(SPI_HALF_SPEED)) SERIAL_PRINT("card.init failed");
+  if (!card.init(SPI_HALF_SPEED)) Serial.print("card.init failed");
 
   // initialize a FAT volume
-  if (!volume.init(&card)) SERIAL_PRINT("volume.init failed");
+  if (!volume.init(&card)) Serial.print("volume.init failed");
 
   // open the root directory
-  if (!root.openRoot(&volume)) SERIAL_PRINT("openRoot failed");
+  if (!root.openRoot(&volume)) Serial.print("openRoot failed");
 
   file.writeError=false;
 
@@ -48,7 +48,7 @@ void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file, cha
   // O_APPEND - seek to the end of the file prior to each write
   // O_WRITE - open for write
   if (!file.open(&root, fileName, O_CREAT | O_APPEND | O_WRITE)) {
-    SERIAL_PRINT("open failed");
+    Serial.print("open failed");
   }
 
 }
