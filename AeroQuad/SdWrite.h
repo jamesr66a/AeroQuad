@@ -29,7 +29,7 @@ void writeString(SdFile& f, char *str) {
   f.write((uint8_t *)str, n);
 }
 
-void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file, string fileName){
+void appendInit(Sd2Card& card, SdVolume& volume, SdFile& root, SdFile& file, char* fileName){
 
   // initialize the SD card at SPI_HALF_SPEED to avoid bus errors with
   // breadboards.  use SPI_FULL_SPEED for better performance.
