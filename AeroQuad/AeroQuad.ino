@@ -1516,7 +1516,7 @@ void process10HzTask1() {
   char name []="File.txt";
   
   appendInit(card, volume, root, file);
-  writeString(f,"Hello World");
+  writeString(file,"Hello World");
   
 }
 
