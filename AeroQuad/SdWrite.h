@@ -1,8 +1,8 @@
 #ifndef SD_WRITE_H
 #define SD_WRITE_H
 
-#include "AeroQuad/Libmaple/libraries/mapleSDfat/SdFat.h"
-#include "AeroQuad/Libmaple/libraries/mapleSDfat/SdFatUtil.h"
+#include "../../Libmaple/libraries/mapleSDfat/SdFat.h"
+#include "../../Libmaple/libraries/mapleSDfat/SdFatUtil.h"
 
 //writes CR and LF to a file 
 void writeCRLF(SdFile& f){
