@@ -6,11 +6,11 @@
 
 //writes CR and LF to a file 
 void writeCRLF(SdFile& f){
-	f.write((unint8_t*)"\r\n", 2);
+	f.write((uint8_t*)"\r\n", 2);
 }
 
 //writes and unsigned number to a file
-void writeNumber(SdFile& f, unint32_t n){
+void writeNumber(SdFile& f, uint32_t n){
   uint8_t buf[10];
   uint8_t i = 0;
   do {
