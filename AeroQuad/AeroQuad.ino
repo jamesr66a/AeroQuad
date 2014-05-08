@@ -1515,7 +1515,7 @@ void process10HzTask1() {
   SdFile file;
   char name []="File.txt";
   
-  appendInit(card, volume, root, file, name );
+  appendInit(card, volume, root, file);
   writeString(f,"Hello World");
   
 }
