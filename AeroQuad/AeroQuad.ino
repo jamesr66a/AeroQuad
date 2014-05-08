@@ -52,6 +52,7 @@
   #error "CameraTXControl need to have CameraControl defined"
 #endif 
 
+#include "SdWrite.h" //test
 #include <EEPROM.h>
 #include <Wire.h>
 #include <GlobalDefined.h>
@@ -61,6 +62,7 @@
 #include <FourtOrderFilter.h>
 #ifdef BattMonitor
   #include <BatteryMonitorTypes.h>
+  
 #endif
 
 //********************************************************
@@ -98,6 +100,11 @@
   #undef UseGPSNavigator
 
 
+  Sd2Card card; //test
+  SdVolume volume;
+  SdFile root;
+  SdFile file;
+  //end test
   /**
    * Put AeroQuad_v1 specific initialization need here
    */
