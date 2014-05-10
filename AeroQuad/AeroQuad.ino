@@ -1509,14 +1509,14 @@ void process10HzTask1() {
     calculateHeading();
     
   #endif
-  Sd2Card card;
-  SdVolume volume;
-  SdFile root;
-  SdFile file;
-  char name []="File.txt";
+  //Sd2Card card;
+  //SdVolume volume;
+  //SdFile root;
+  //SdFile file;
+  //char name []="File.txt";
   
-  appendInit(card, volume, root, file);
-  writeString(file,"Hello World");
+  //appendInit(card, volume, root, file);
+  //writeString(file,"Hello World");
   
 }
 
